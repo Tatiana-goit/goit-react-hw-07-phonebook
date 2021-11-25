@@ -1,32 +1,36 @@
-import { combineReducers } from 'redux';
-import initialContacts from '../../data.json';
-import { ADD_CONTACT, DELETE_CONTACT, CHANGE_FILTER } from './phone-types';
+import { createReducer } from '@reduxjs/toolkit';
+import {
+  getContactsRequest,
+  getContactsSuccess,
+  getContactsError,
+} from './phone-actions';
 
-const contactList = (state = initialContacts, { type, payload }) => {
-  switch (type) {
-    case ADD_CONTACT:
-      return [...state, payload];
-
-    case DELETE_CONTACT:
-      return state.filter(contact => contact.id !== payload);
-    default:
-      return state;
-  }
-};
-
-const contactFilter = (state = '', { type, payload }) => {
-  switch (type) {
-    case CHANGE_FILTER:
-      return payload;
-
-    default:
-      return state;
-  }
-};
-
-const contactReducer = combineReducers({
-  contact: contactList,
-  filter: contactFilter,
+export const entities = createReducer([], {
+  [getContactsSuccess]: (state, action) => {
+    return [...state,...action.payload]
+  },
 });
 
-export default contactReducer;
+export const loading = createReducer(false, {
+  [getContactsRequest]: (_, action) =>  true,
+});
+
+export const error = createReducer(false, {
+  [getContactsError]: (_, action) =>  action.payload
+});
+
+
+
+
+// import { addContact, deleteContact, changeFilter } from './phone-actions';
+// import initialContacts from '../../data.json';
+
+// export const contactList = createReducer(initialContacts, {
+//   [addContact]: (state, { payload }) => [...state, payload],
+//   [deleteContact]: (state, { payload }) =>
+//     state.filter(contact => contact.id !== payload),
+// });
+
+// export const contactFilter = createReducer('', {
+//   [changeFilter]: (_, { payload }) => payload,
+// });

@@ -6,16 +6,9 @@ import ContactForm from '../ContactForm/ContactForm';
 import ContactList from '../ContactList/ContactList';
 import Filter from '../Filter/Filter';
 import Modal from '../Modal/Modal';
-// import useLocalStorage from '../../hooks/useLocalStorage';
 
 export default function App() {
   const [showModal, setShowModal] = useState(false);
-
-  //   searchSameName
-  //     ? alert(`${obj.name} is already in contacts`)
-  //     : setContacts([...contacts, newContact]);
-  // };
-
   const toggleModal = () => setShowModal(!showModal);
 
   return (
